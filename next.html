@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In Loving Memory</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(#111, #1a1a1a);
+    color: #eee;
+    text-align: center;
+}
+
+header {
+    padding: 40px 20px;
+}
+
+header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+header p {
+    opacity: 0.8;
+    font-size: 16px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+/* Lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 12px;
+}
+
+.lightbox p {
+    margin-top: 15px;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.lightbox span {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 32px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" autoplay loop>
+    <source src="finding_her.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+    <h1>In Loving Memory</h1>
+    <p>Forever remembered, forever loved</p>
+</header>
+
+<section class="gallery">
+    <img src="img3.jpeg" alt="Memory 1" onclick="openLightbox(this)">
+    <img src="img5.jpeg" alt="Memory 2" onclick="openLightbox(this)">
+    <img src="img7.jpeg" alt="Memory 3" onclick="openLightbox(this)">
+    <img src="img8.jpeg" alt="Memory 4" onclick="openLightbox(this)">
+    <img src="img9.jpeg" alt="Memory 5" onclick="openLightbox(this)">
+</section>
+
+<div class="lightbox" id="lightbox">
+    <span onclick="closeLightbox()">×</span>
+    <img id="lightboxImg">
+    <p id="lightboxText"></p>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+// Start from 1:58 when file opens
+window.addEventListener("load", () => {
+    music.currentTime = 118;
+});
+
+// Fallback: if browser blocks autoplay, resume on any interaction
+document.addEventListener("click", () => {
+    if (music.paused) {
+        music.play();
+    }
+}, { once: true });
+
+function openLightbox(img) {
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightboxImg").src = img.src;
+    document.getElementById("lightboxText").innerText = img.alt;
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
